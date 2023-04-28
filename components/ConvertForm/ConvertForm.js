@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 import styled from 'styled-components'
 import AmountInput from 'components/AmountInput/AmountInput'
@@ -23,6 +23,10 @@ const CONVERTER_STATUSES = {
   STEPPER: 'STATE_STEPPER',
 }
 
+const inverted = true;
+const toBonded = !inverted;
+const selectedOption = 1;
+
 function ConvertForm() {
   const [formStatus, setFormStatus, setAmountSource, setIsBonded, clearState] = useStore(state => [
     state.formStatus,
@@ -31,10 +35,10 @@ function ConvertForm() {
     state.setIsBonded,
     state.clearState,
   ])
-  const [selectedOption, setSelectedOption] = useState(1)
-  const [inverted, setInverted] = useState(true)
-  const toBonded = useMemo(() => !inverted, [inverted])
-  const [legalChecked, setLegalChecked] = useState(false)
+  // const [selectedOption, setSelectedOption] = useState(1)
+  // const [inverted, setInverted] = useState(true)
+  // const toBonded = useMemo(() => !inverted, [inverted])
+  // const [legalChecked, setLegalChecked] = useState(false)
   const {
     amountSource,
     bindOtherInput,
@@ -54,13 +58,13 @@ function ConvertForm() {
     tokenBalance,
   ])
 
-  const handleLegalToggle = useCallback(() => {
-    setLegalChecked(legalChecked => !legalChecked)
-  }, [])
+  // const handleLegalToggle = useCallback(() => {
+  //   setLegalChecked(legalChecked => !legalChecked)
+  // }, [])
 
   const handleInvert = useCallback(() => {
-    setInverted(inverted => !inverted)
-    setSelectedOption(option => (option + 1) % 2)
+    // setInverted(inverted => !inverted)
+    // setSelectedOption(option => (option + 1) % 2)
   }, [])
 
   const handleConvertMax = useCallback(() => {
@@ -68,7 +72,7 @@ function ConvertForm() {
       formatUnits(tokenBalance, { truncateToDecimalPlace: 3 }),
       toBonded
     )
-  }, [handleManualInputChange, toBonded, tokenBalance])
+  }, [handleManualInputChange, tokenBalance])
 
   const handleConvert = useCallback((amount, isBonded) => {
     setFormStatus(CONVERTER_STATUSES.STEPPER)
@@ -94,7 +98,7 @@ function ConvertForm() {
       return 'normal'
     }
     return inverted ? 'bonded' : 'collateral'
-  }, [formStatus, inverted])
+  }, [formStatus])
 
   return (
     <div
