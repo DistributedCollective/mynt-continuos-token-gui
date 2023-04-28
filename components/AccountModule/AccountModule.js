@@ -15,7 +15,6 @@ import { COLORS } from 'components/utils/constants'
 
 function AccountModule() {
   const { account } = useWalletAugmented()
-  console.log(account)
   return account ? <ConnectedMode /> : <DisconnectedMode />
 }
 

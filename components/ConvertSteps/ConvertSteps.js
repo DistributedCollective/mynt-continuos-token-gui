@@ -55,12 +55,12 @@ function ConvertSteps({
   const setInitialSteps = useCallback(() => {
     setSteps(initialStepState(steps))
     setStepperStatus(STEPPER_IN_PROGRESS)
-  }, []);
+  }, [setStepperStatus, setSteps, steps]);
 
   useEffect(() => {
     if (savedSteps.length > 0) return
     setInitialSteps()
-  }, [])
+  }, [savedSteps.length, setInitialSteps])
 
   const attemptStepSigning = useCallback(
     async (stepIndex, retry) => {
@@ -147,7 +147,7 @@ function ConvertSteps({
         console.error(err)
       }
     },
-    [steps, stepperStage, savedSteps.length]
+    [savedSteps, steps, setStepActive, setStepStatus, stepperStage, setStepHash, setActiveStep, setStepperStatus]
   )
 
   const handleRetrySigning = () => {
@@ -157,9 +157,8 @@ function ConvertSteps({
   }
 
   useEffect(() => {
-    console.log("savedSteps length", savedSteps.length)
     attemptStepSigning(stepperStage)
-  }, [stepperStage, savedSteps.length])
+  }, [stepperStage, savedSteps.length, attemptStepSigning])
 
   const renderStep = (stepIndex, renderDivider) => (
     <li

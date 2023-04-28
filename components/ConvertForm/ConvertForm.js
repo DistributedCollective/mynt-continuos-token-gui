@@ -74,14 +74,13 @@ function ConvertForm() {
     setFormStatus(CONVERTER_STATUSES.STEPPER)
     setAmountSource(amount)
     setIsBonded(isBonded)
-  }, [])
+  }, [setAmountSource, setFormStatus, setIsBonded])
 
   const handleReturnHome = useCallback(() => {
-    console.log('handleReturnHome')
     resetInputs()
     clearState()
     setFormStatus(CONVERTER_STATUSES.FORM)
-  }, []);
+  }, [clearState, resetInputs, setFormStatus]);
 
   const submitButtonDisabled = Boolean(
     !account ||
@@ -256,10 +255,10 @@ function Docs() {
       `}
     >
       <li>
-        <Anchor href="https://live.sovryn.app">Sovryn</Anchor>
+        <Anchor href="https://sovryn.app">Sovryn</Anchor>
       </li>
       <li>
-        <Anchor href="https://wiki.sovryn.app/en/sovryn-dapp/origins/mynt">
+        <Anchor href="https://wiki.sovryn.com/en/sovryn-dapp/subprotocols/mynt">
           Docs
         </Anchor>
       </li>
