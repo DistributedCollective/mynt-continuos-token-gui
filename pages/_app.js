@@ -34,6 +34,7 @@ export default function App({ Component, pageProps }) {
       <animated.div style={revealProps}>
         <NextHead>
           <title>Bonded Token Converter</title>
+          <meta name="viewport" content="viewport-fit=cover" />
         </NextHead>
         <GlobalStyles />
         <WalletProvider>
